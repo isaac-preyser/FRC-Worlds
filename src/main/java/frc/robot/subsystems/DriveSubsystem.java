@@ -26,6 +26,8 @@ public class DriveSubsystem extends SubsystemBase {
     MotorControllerGroup leftMotors = null; 
     MotorControllerGroup rightMotors = null;
 
+    DifferentialDrive diffDrive = null;
+
     
     
 
@@ -43,15 +45,23 @@ public class DriveSubsystem extends SubsystemBase {
         Spark s_rightFront = new Spark(Constants.pwmRightFront);
         Spark s_rightBack = new Spark(Constants.pwmRightBack);
 
-        MotorControllerGroup leftMotors = new MotorControllerGroup(s_leftFront, s_leftBack);
-        MotorControllerGroup rightMotors = new MotorControllerGroup(s_rightFront, s_rightBack);
-        rightMotors.setInverted(true); //must invert the right side, according to API changelog. 
+        try (MotorControllerGroup leftMotors = new MotorControllerGroup(s_leftFront, s_leftBack)) {
+        }
+        try (MotorControllerGroup rightMotors = new MotorControllerGroup(s_rightFront, s_rightBack)) {
+            rightMotors.setInverted(true); //must invert the right side, according to API changelog. 
+        }
+
+        //start diffDrive
+
+        try (DifferentialDrive diffDrive = new DifferentialDrive(leftMotors, rightMotors)) {
+            
+        } 
 
 
     }
 
     public void Drive(double speed, double turn) {
-        
+        diffDrive.arcadeDrive(speed, turn);
     }
 
     @Override
