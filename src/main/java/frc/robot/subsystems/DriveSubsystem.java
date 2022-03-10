@@ -28,6 +28,12 @@ public class DriveSubsystem extends SubsystemBase {
 
     DifferentialDrive diffDrive = null;
 
+    //values of joystick inputs 
+
+    double leftJoy = 0;
+    double rightJoy = 0;
+
+    XboxController controller = null; 
     
     
 
@@ -54,7 +60,7 @@ public class DriveSubsystem extends SubsystemBase {
         //start diffDrive
 
         try (DifferentialDrive diffDrive = new DifferentialDrive(leftMotors, rightMotors)) {
-            
+             
         } 
 
 
@@ -62,6 +68,10 @@ public class DriveSubsystem extends SubsystemBase {
 
     public void Drive(double speed, double turn) {
         diffDrive.arcadeDrive(speed, turn);
+        leftJoy = controller.getLeftY(); //set the value of the joystick to the Y-axis of the left joystick
+        rightJoy = controller.getRightX(); //set the value of the joystick to the X-axis of the right joystick. 
+        
+        
     }
 
     @Override
