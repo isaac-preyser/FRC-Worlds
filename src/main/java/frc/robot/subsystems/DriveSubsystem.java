@@ -8,68 +8,51 @@
 //initial subsystem setup and imports. 
 package frc.robot.subsystems; 
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 public class DriveSubsystem extends SubsystemBase {
     /*create a new DriveSubsytem*/
 
-    Spark s_leftFront = null;
-    Spark s_leftBack = null;
-    Spark s_rightFront = null;
-    Spark s_rightBack = null; 
 
-    MotorControllerGroup leftMotors = null; 
-    MotorControllerGroup rightMotors = null;
+    //construct new spark objects 
+    Spark s_leftFront = new Spark(Constants.pwmLeftFront);
+    Spark s_leftBack = new Spark(Constants.pwmLeftBack);
+    Spark s_rightFront = new Spark(Constants.pwmRightFront);
+    Spark s_rightBack = new Spark(Constants.pwmRightBack);
+ 
 
-    DifferentialDrive diffDrive = null;
+    MotorControllerGroup leftMotors = new MotorControllerGroup(s_leftFront, s_leftBack); 
+
+    MotorControllerGroup rightMotors = new MotorControllerGroup(s_rightFront, s_rightBack);
+
+    DifferentialDrive diffDrive = new DifferentialDrive(leftMotors, rightMotors);
 
     //values of joystick inputs 
 
     double leftJoy = 0;
     double rightJoy = 0;
 
-    XboxController controller = null; 
+     
     
     
 
     public DriveSubsystem() {
         //code here
 
-        XboxController controller = new XboxController(Constants.controllerPort); //instantiate new xbox controller
-       
-
-        
-
-       //construct new spark objects 
-        Spark s_leftFront = new Spark(Constants.pwmLeftFront);
-        Spark s_leftBack = new Spark(Constants.pwmLeftBack);
-        Spark s_rightFront = new Spark(Constants.pwmRightFront);
-        Spark s_rightBack = new Spark(Constants.pwmRightBack);
-
-        try (MotorControllerGroup leftMotors = new MotorControllerGroup(s_leftFront, s_leftBack)) {
-        }
-        try (MotorControllerGroup rightMotors = new MotorControllerGroup(s_rightFront, s_rightBack)) {
-            rightMotors.setInverted(true); //must invert the right side, according to API changelog. 
-        }
-
         //start diffDrive
 
-        try (DifferentialDrive diffDrive = new DifferentialDrive(leftMotors, rightMotors)) {
-             
-        } 
-
-
+        rightMotors.setInverted(true);
     }
 
-    public void Drive(double speed, double turn) {
+    public void drive(double speed, double turn) {
         diffDrive.arcadeDrive(speed, turn);
-        leftJoy = controller.getLeftY(); //set the value of the joystick to the Y-axis of the left joystick
-        rightJoy = controller.getRightX(); //set the value of the joystick to the X-axis of the right joystick. 
+        leftJoy = RobotContainer.controller.getLeftY(); //set the value of the joystick to the Y-axis of the left joystick
+        rightJoy = RobotContainer.controller.getRightX(); //set the value of the joystick to the X-axis of the right joystick. 
         
         
     }

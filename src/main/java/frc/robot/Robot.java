@@ -28,6 +28,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    RobotContainer.powerDist.clearStickyFaults();
     
   }
 
@@ -45,6 +46,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    RobotContainer.powerDist.clearStickyFaults();
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -82,7 +84,14 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    double speed = -RobotContainer.controller.getLeftY(); //inverted to put the battery side in the back .. temporary fix here.
+    double turn = RobotContainer.controller.getRightX();
+   
+    RobotContainer.m_driveSubsystem.drive(speed, turn);
+
+
+  }
 
   @Override
   public void testInit() {
