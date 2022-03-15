@@ -9,8 +9,10 @@ import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
 
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ShootCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -35,8 +37,10 @@ public class RobotContainer {
 
   public final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
 
+  public final static ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  
+  private final ShootCommand m_ShootCommand = new ShootCommand(m_shooterSubsystem);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */

@@ -90,6 +90,12 @@ public class Robot extends TimedRobot {
    
     RobotContainer.m_driveSubsystem.drive(speed, turn);
 
+    boolean b_pressed = RobotContainer.controller.getBButton();
+
+    if (b_pressed) {
+      RobotContainer.m_shooterSubsystem.shoot();
+    }
+
 
   }
 

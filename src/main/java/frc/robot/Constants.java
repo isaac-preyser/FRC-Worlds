@@ -28,6 +28,11 @@ public final class Constants {
     public final static int pwmRightBack = 3; 
 
 
+    //bucket test pwm ports 
+
+    public final static int pwmBucketLeft = 5;
+    public final static int pwmBucketRight = 6; 
+
     
 
 }
