@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.XboxController;
 
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ShootCommand;
+import frc.robot.subsystems.CameraSubsystem;
+import frc.robot.subsystems.ColorSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -39,6 +41,10 @@ public class RobotContainer {
 
   public final static ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
 
+  public final static CameraSubsystem m_cameraSubsystem = new CameraSubsystem();
+
+  public final static ColorSubsystem m_colorSubsystem = new ColorSubsystem();
+  
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final ShootCommand m_ShootCommand = new ShootCommand(m_shooterSubsystem);
 

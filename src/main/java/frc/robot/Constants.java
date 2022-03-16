@@ -3,6 +3,8 @@
 // the WPILib BSD license file in the root directory of this project.
 package frc.robot;
 
+import edu.wpi.first.wpilibj.I2C;
+
 //imports
 
 
@@ -32,6 +34,10 @@ public final class Constants {
 
     public final static int pwmBucketLeft = 5;
     public final static int pwmBucketRight = 6; 
+
+    // color sensor test port
+
+    public final static I2C.Port i2cPort = I2C.Port.kOnboard;
 
     
 
