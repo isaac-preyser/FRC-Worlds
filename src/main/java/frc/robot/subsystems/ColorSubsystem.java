@@ -8,10 +8,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import com.revrobotics.ColorMatch;
-import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
+import com.revrobotics.ColorMatchResult;
+import com.revrobotics.ColorMatch;
+
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
 public class ColorSubsystem extends SubsystemBase {
   /** Creates a new ColorSubsystem. */
@@ -49,8 +53,16 @@ public class ColorSubsystem extends SubsystemBase {
 
     if (match.color == kBlueTarget) {
       colorString = "Blue";
+      if (Constants.alliance == Alliance.Red && match.confidence > 0.7) {
+        //prevent the intake from taking in the ball
+        RobotContainer.m_shooterSubsystem.spinIntake(true);
+      }
     } else if (match.color == kRedTarget) {
       colorString = "Red";
+      if (Constants.alliance == Alliance.Blue && match.confidence > 0.7) {
+        //prevent the intake from taking in the ball
+        RobotContainer.m_shooterSubsystem.spinIntake(true);
+      }
     } else if (match.color == kGreenTarget) {
       colorString = "Green";
     } else if (match.color == kYellowTarget) {

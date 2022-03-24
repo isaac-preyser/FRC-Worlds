@@ -12,6 +12,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.subsystems.CameraSubsystem;
 import frc.robot.subsystems.ColorSubsystem;
+import frc.robot.subsystems.ConveyorsSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -44,9 +45,11 @@ public class RobotContainer {
   public final static CameraSubsystem m_cameraSubsystem = new CameraSubsystem();
 
   public final static ColorSubsystem m_colorSubsystem = new ColorSubsystem();
+
+  public final static ConveyorsSubsystem m_conveyorsSubsystem = new ConveyorsSubsystem();
   
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  private final ShootCommand m_ShootCommand = new ShootCommand(m_shooterSubsystem);
+  private final static ShootCommand m_ShootCommand = new ShootCommand(m_shooterSubsystem);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -74,5 +77,9 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return m_autoCommand;
+  }
+
+  public static Command getShootCommand() {
+    return m_ShootCommand;
   }
 }

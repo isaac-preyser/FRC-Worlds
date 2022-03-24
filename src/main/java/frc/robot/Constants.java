@@ -3,7 +3,9 @@
 // the WPILib BSD license file in the root directory of this project.
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
 //imports
 
@@ -29,15 +31,26 @@ public final class Constants {
     public final static int pwmRightFront = 2; 
     public final static int pwmRightBack = 3; 
 
+    //Intake controller pwm ports (on RoboRIO)
+    public final static int pwmIntakeTop = 4;
+    public final static int pwmIntakeBottom = 5;
 
-    //bucket test pwm ports 
-
-    public final static int pwmBucketLeft = 5;
-    public final static int pwmBucketRight = 6; 
+    //flywheel controller pwm ports (on RoboRIO)
+    public final static int pwmFlywheel = 6;
+    
 
     // color sensor test port
 
     public final static I2C.Port i2cPort = I2C.Port.kOnboard;
+
+    //conveyor ports
+    public static final int pwmLeftConveyor = 7;
+
+    public static final int pwmRightConveyor = 8;
+
+    //alliance constants
+    //detect alliance from driver station
+    public static Alliance alliance = DriverStation.getAlliance();
 
     
 
