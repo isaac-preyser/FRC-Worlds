@@ -52,6 +52,10 @@ public final class Constants {
     //detect alliance from driver station
     public static Alliance alliance = DriverStation.getAlliance();
 
+    //pwm ports for the linear actuator based arm (on RoboRIO)
+    public static final int pwmArm = 9; //note this is on the MXP expansion port
+    
+
     
 
 }

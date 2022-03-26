@@ -5,11 +5,10 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 
-public class IntakeOff extends CommandBase {
-  /** Creates a new IntakeOff. */
-  public IntakeOff() {
+public class RaiseArm extends CommandBase {
+  /** Creates a new RaiseArm. */
+  public RaiseArm() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -20,8 +19,7 @@ public class IntakeOff extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //turn off intake
-    RobotContainer.m_shooterSubsystem.stopIntake();
+    
   }
 
   // Called once the command ends or is interrupted.

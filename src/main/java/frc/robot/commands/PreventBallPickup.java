@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 
 public class PreventBallPickup extends CommandBase {
   /** Creates a new PreventBallPickup. */
@@ -18,7 +19,10 @@ public class PreventBallPickup extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    //spin up intake in the inverse direction
+    RobotContainer.m_shooterSubsystem.spinIntake(false);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
