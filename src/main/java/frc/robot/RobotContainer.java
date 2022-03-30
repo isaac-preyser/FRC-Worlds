@@ -7,8 +7,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
-
+import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.IntakeOn;
 import frc.robot.commands.ShootCommand;
 import frc.robot.subsystems.CameraSubsystem;
 import frc.robot.subsystems.ColorSubsystem;
@@ -17,6 +18,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -50,12 +52,13 @@ public class RobotContainer {
   
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final static ShootCommand m_ShootCommand = new ShootCommand(m_shooterSubsystem);
-
+  private final IntakeOn m_IntakeOn = new IntakeOn(/*m_IntakeSubsystem*/);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+
   }
 
   /**
@@ -66,6 +69,28 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     //configure THE BUTTONS
+
+    //TO-DO
+    //Conveyors- Backwards, Forwards (possibly use right stick Y-axis for this)
+    //Intake Toggle
+    //Potentially go buy an elgato stream deck, and use it as a subsystem monitoring station / toggles for things like the top of the intake arm coming down etc
+    // could be done with this: https://github.com/Snarr/FRC-Deck
+    //Intake Arm Raising/Lowering
+    //Flywheel Control
+    //Lift Arm Control
+    //..
+    /*********************************************************/
+
+    //turn on the intake when the b button is pressed
+    new JoystickButton(controller, 2).whenPressed(m_IntakeOn);
+
+    //shoot when the x button is pressed
+    new JoystickButton(controller, 3).whenPressed(m_ShootCommand);
+
+    //when the left bumper is pressed, run the intake backwards
+    
+    
+
 
   }
 

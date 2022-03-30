@@ -98,12 +98,10 @@ public class Robot extends TimedRobot {
     double turn = RobotContainer.controller.getRightX();
    
     RobotContainer.m_driveSubsystem.drive(speed, turn);
+    
+    
 
-    boolean b_pressed = RobotContainer.controller.getBButton();
-
-    if (b_pressed) {
-      RobotContainer.getShootCommand(); //shoot
-    }
+    
 
 
   }
