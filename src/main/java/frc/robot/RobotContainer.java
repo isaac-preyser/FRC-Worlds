@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
@@ -12,6 +13,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IntakeOff;
 import frc.robot.commands.IntakeOn;
 import frc.robot.commands.LowerArm;
+import frc.robot.commands.PneumaticsExtend;
 import frc.robot.commands.RaiseArm;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.StopArm;
@@ -24,7 +26,11 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
+import edu.wpi.first.wpilibj2.command.button.POVButton;
+//import pneumatics subsystem
+import frc.robot.subsystems.PneumaticSubsystem;
+import frc.robot.commands.PneumaticsExtend;
+import frc.robot.commands.PneumaticsRetract;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -55,6 +61,7 @@ public class RobotContainer {
 
   public final static ConveyorsSubsystem m_conveyorsSubsystem = new ConveyorsSubsystem();
   public final static ArmSubsystem m_armSubsystem = new ArmSubsystem();
+  public final static PneumaticSubsystem m_pneumaticSubsystem = new PneumaticSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final static ShootCommand m_ShootCommand = new ShootCommand(m_shooterSubsystem);
@@ -63,6 +70,9 @@ public class RobotContainer {
   private final LowerArm m_LowerArm = new LowerArm(m_armSubsystem);
   private final StopArm m_StopArm = new StopArm(m_armSubsystem);
   private final IntakeOff m_IntakeOff = new IntakeOff();
+  private final PneumaticsExtend m_PneumaticsExtend = new PneumaticsExtend();
+  private final PneumaticsRetract m_PneumaticsRetract = new PneumaticsRetract();
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -102,7 +112,10 @@ public class RobotContainer {
 
     //when the left bumper is pressed, raise the arm
     new JoystickButton(controller, 5).whenHeld(m_RaiseArm, true).whenReleased(m_StopArm);
+    
+    new POVButton(controller, 0).whenPressed(m_PneumaticsExtend);
 
+    new POVButton(controller, 180).whenPressed(m_PneumaticsRetract);
 
     
     //when the right bumper is pressed, lower the arm
