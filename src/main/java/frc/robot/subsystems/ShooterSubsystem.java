@@ -13,7 +13,7 @@ import frc.robot.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new ShooterSubsystem. */
-
+  int intakeReduce = 5;
   //instantiate motor for a single flywheel shooter
   VictorSP flywheel = new VictorSP(Constants.pwmFlywheel);
 

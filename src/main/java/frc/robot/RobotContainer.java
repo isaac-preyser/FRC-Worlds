@@ -9,8 +9,13 @@ import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.IntakeOff;
 import frc.robot.commands.IntakeOn;
+import frc.robot.commands.LowerArm;
+import frc.robot.commands.RaiseArm;
 import frc.robot.commands.ShootCommand;
+import frc.robot.commands.StopArm;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CameraSubsystem;
 import frc.robot.subsystems.ColorSubsystem;
 import frc.robot.subsystems.ConveyorsSubsystem;
@@ -49,11 +54,15 @@ public class RobotContainer {
   public final static ColorSubsystem m_colorSubsystem = new ColorSubsystem();
 
   public final static ConveyorsSubsystem m_conveyorsSubsystem = new ConveyorsSubsystem();
-  
+  public final static ArmSubsystem m_armSubsystem = new ArmSubsystem();
+
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final static ShootCommand m_ShootCommand = new ShootCommand(m_shooterSubsystem);
   private final IntakeOn m_IntakeOn = new IntakeOn(/*m_IntakeSubsystem*/);
-
+  private final RaiseArm m_RaiseArm = new RaiseArm(m_armSubsystem);
+  private final LowerArm m_LowerArm = new LowerArm(m_armSubsystem);
+  private final StopArm m_StopArm = new StopArm(m_armSubsystem);
+  private final IntakeOff m_IntakeOff = new IntakeOff();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -82,15 +91,22 @@ public class RobotContainer {
     /*********************************************************/
 
     //turn on the intake when the b button is pressed
-    new JoystickButton(controller, 2).whenPressed(m_IntakeOn);
+    new JoystickButton(controller, 2).whileActiveOnce(m_IntakeOn);
+    new JoystickButton(controller, 2).whenInactive(m_IntakeOff);
 
     //shoot when the x button is pressed
     new JoystickButton(controller, 3).whenPressed(m_ShootCommand);
 
     //when the left bumper is pressed, run the intake backwards
     
-    
 
+    //when the left bumper is pressed, raise the arm
+    new JoystickButton(controller, 5).whenHeld(m_RaiseArm, true).whenReleased(m_StopArm);
+
+
+    
+    //when the right bumper is pressed, lower the arm
+    new JoystickButton(controller, 6).whenHeld(m_LowerArm, true).whenReleased(m_StopArm);
 
   }
 

@@ -14,6 +14,8 @@ import com.revrobotics.ColorMatch;
 
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.IntakeOff;
+import frc.robot.commands.IntakeOn;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
@@ -24,16 +26,19 @@ public class ColorSubsystem extends SubsystemBase {
 
   private final ColorMatch m_colorMatcher = new ColorMatch();
 
+  IntakeOff m_IntakeOff = new IntakeOff();
+
+  IntakeOn m_IntakeOn = new IntakeOn();
   //import colors 
 
-  private final Color kBlueTarget = new Color(0.143, 0.427, 0.429);
-  private final Color kGreenTarget = new Color(0.197, 0.561, 0.240);
-  private final Color kRedTarget = new Color(0.561, 0.232, 0.114);
-  private final Color kYellowTarget = new Color(0.361, 0.524, 0.113);
+  private final Color kBlueTarget = new Color(0.232, 0.458, 0.309);
+ // private final Color kGreenTarget = new Color(0.197, 0.561, 0.240);
+  private final Color kRedTarget = new Color(0.35, 0.435, 0.21);
+  private final Color kYellowTarget = new Color(0.293, 0.475, 0.231);
 
   public ColorSubsystem() {
     m_colorMatcher.addColorMatch(kBlueTarget);
-    m_colorMatcher.addColorMatch(kGreenTarget);
+
     m_colorMatcher.addColorMatch(kRedTarget);
     m_colorMatcher.addColorMatch(kYellowTarget);
   }
@@ -55,19 +60,24 @@ public class ColorSubsystem extends SubsystemBase {
       colorString = "Blue";
       if (Constants.alliance == Alliance.Red && match.confidence > 0.7) {
         //prevent the intake from taking in the ball
-        RobotContainer.m_shooterSubsystem.spinIntake(true);
+        m_IntakeOff.schedule();
+      } else {
+        m_IntakeOn.schedule();
       }
     } else if (match.color == kRedTarget) {
       colorString = "Red";
       if (Constants.alliance == Alliance.Blue && match.confidence > 0.7) {
         //prevent the intake from taking in the ball
-        RobotContainer.m_shooterSubsystem.spinIntake(true);
+        
+        m_IntakeOff.schedule();
+      } else {
+        m_IntakeOn.schedule();
       }
-    } else if (match.color == kGreenTarget) {
-      colorString = "Green";
     } else if (match.color == kYellowTarget) {
       colorString = "Yellow";
-    } else {
+      m_IntakeOff.schedule();
+      }
+    else {
       colorString = "Unknown";
     }
 

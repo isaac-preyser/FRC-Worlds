@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -12,7 +12,7 @@ public class ArmSubsystem extends SubsystemBase {
   /** Creates a new ArmSubsystem. */
   //instatiate the arm motor
   
-  private final Talon armMotor = new Talon(Constants.pwmArm);
+  private final Spark armMotor = new Spark(Constants.pwmArm);
 
   public ArmSubsystem() {
     

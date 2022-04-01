@@ -6,10 +6,12 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.ArmSubsystem;
 
-public class IntakeOn extends CommandBase {
-  /** Creates a new IntakeOn. */
-  public IntakeOn() {
+public class LowerArm extends CommandBase {
+  /** Creates a new LowerArm. 
+   * @param mArmsubsystem*/
+  public LowerArm(ArmSubsystem mArmsubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -20,15 +22,7 @@ public class IntakeOn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //spin up intake
-    if(RobotContainer.controller.getLeftStickButton()) {
-      RobotContainer.m_shooterSubsystem.spinIntake(false);
-    } else {
-      RobotContainer.m_shooterSubsystem.spinIntake(true);
-
-    }
-    
-
+    RobotContainer.m_armSubsystem.lowerArm();
   }
 
   // Called once the command ends or is interrupted.
